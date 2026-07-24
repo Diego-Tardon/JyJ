@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#08306B">
+  <title>JyJ Gasfitería | Reparaciones e instalaciones profesionales</title>
+  <meta name="description" content="JyJ Gasfitería: reparación de fugas, instalación de grifería, calefones y destape de alcantarillado. Atención rápida, técnicos especializados y garantía en cada trabajo.">
+  <meta name="keywords" content="gasfitería, gasfiter, reparación de fugas, instalación calefón, destape alcantarillado, cambio de sanitarios">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="JyJ Gasfitería | Soluciones rápidas y profesionales">
+  <meta property="og:description" content="Reparaciones, instalaciones y emergencias con atención de calidad y garantía.">
+  <meta property="og:type" content="website">
+
+  <!-- Preconnect para rendimiento -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Bootstrap 5.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <!-- Tipografías -->
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
+
+  <!-- Estilos propios -->
+  <link href="style.css" rel="stylesheet">
+
+  <!-- Favicon simple -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230D6EFD'/%3E%3Ctext x='50' y='68' font-size='55' font-family='sans-serif' font-weight='800' fill='white' text-anchor='middle'%3EJJ%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+
+  <!-- Skip link accesibilidad -->
+  <a class="skip-link" href="#main-content">Saltar al contenido principal</a>
+
+  <!-- ============ NAVBAR ============ -->
+  <nav class="navbar navbar-expand-lg fixed-top" id="mainNavbar" aria-label="Navegación principal">
+    <div class="container">
+      <a class="navbar-brand" href="#inicio">
+        <span class="brand-mark">JyJ</span>
+        <span class="brand-tag d-none d-sm-inline">Gasfitería</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu"
+        aria-controls="navMenu" aria-expanded="false" aria-label="Abrir menú de navegación">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link" href="#servicios">Servicios</a></li>
+          <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+          <li class="nav-item ms-lg-2 mt-2 mt-lg-0">
+            <a class="btn btn-primary btn-nav-cta" href="#contacto">
+              <i class="bi bi-file-earmark-text"></i> Solicitar Presupuesto
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main-content">
+  <!-- ============ HERO ============ -->
+  <header class="hero" id="inicio">
+    <div class="hero-bg" aria-hidden="true">
+      <svg class="hero-pipes" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="pipeGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/>
+            <stop offset="1" stop-color="#ffffff" stop-opacity="0.04"/>
+          </linearGradient>
+        </defs>
+        <path d="M -50 620 L 250 620 Q 300 620 300 570 L 300 380 Q 300 330 350 330 L 650 330"
+          fill="none" stroke="url(#pipeGrad)" stroke-width="34" stroke-linecap="round"/>
+        <path d="M 900 -30 L 900 180 Q 900 230 950 230 L 1250 230"
+          fill="none" stroke="url(#pipeGrad)" stroke-width="34" stroke-linecap="round"/>
+        <circle cx="300" cy="380" r="22" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="8"/>
+        <circle cx="900" cy="180" r="22" fill="none" stroke="#ffffff" stroke-opacity="0.18" stroke-width="8"/>
+        <g class="hero-drop">
+          <path d="M0 0 C 10 14, 16 24, 16 34 C 16 45, 8 52, 0 52 C -8 52, -16 45, -16 34 C -16 24, -10 14, 0 0 Z"
+            transform="translate(350,330) scale(1.6)" fill="#ffffff" fill-opacity="0.5"/>
+        </g>
+      </svg>
+    </div>
+
+    <div class="container hero-content">
+      <div class="row align-items-center">
+        <div class="col-lg-7">
+          <span class="eyebrow"><i class="bi bi-check-circle-fill"></i> Gasfitería certificada</span>
+          <h1 class="hero-title">Gasfitería <span class="text-accent">JyJ</span></h1>
+          <p class="hero-subtitle">
+            Soluciones rápidas y profesionales para tu hogar o empresa. Reparaciones, instalaciones
+            y emergencias con atención de calidad y garantía.
+          </p>
+          <div class="hero-actions">
+            <a href="#contacto" class="btn btn-primary btn-lg btn-hero">
+              <i class="bi bi-file-earmark-text"></i> Solicitar Presupuesto
+            </a>
+            <a href="https://wa.me/56900000000" target="_blank" rel="noopener" class="btn btn-lg btn-whatsapp">
+              <i class="bi bi-whatsapp"></i> Contactar por WhatsApp
+            </a>
+          </div>
+
+          <ul class="hero-indicators list-unstyled">
+            <li><i class="bi bi-lightning-charge-fill"></i> Atención rápida</li>
+            <li><i class="bi bi-shield-check"></i> Garantía en nuestros trabajos</li>
+            <li><i class="bi bi-tools"></i> Técnicos especializados</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <a href="#servicios" class="scroll-cue" aria-label="Bajar a servicios"><i class="bi bi-chevron-down"></i></a>
+  </header>
+
+  <!-- ============ SERVICIOS ============ -->
+  <section class="section" id="servicios">
+    <div class="container">
+      <div class="section-heading text-center">
+        <span class="eyebrow eyebrow-dark">Qué hacemos</span>
+        <h2>Nuestros servicios</h2>
+        <p class="section-lead">Cobertura completa de gasfitería para hogares y empresas, con materiales de calidad y trabajo garantizado.</p>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card reveal">
+            <div class="service-icon"><i class="bi bi-droplet-half"></i></div>
+            <h3>Reparación de fugas</h3>
+            <p>Detección y reparación de filtraciones de agua antes de que generen daños mayores en tu propiedad.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card reveal">
+            <div class="service-icon"><i class="bi bi-water"></i></div>
+            <h3>Instalación de grifería</h3>
+            <p>Cambio e instalación de llaves, mezcladoras y grifería para cocina y baño con terminaciones profesionales.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card reveal">
+            <div class="service-icon"><i class="bi bi-thermometer-sun"></i></div>
+            <h3>Instalación de calefón</h3>
+            <p>Instalación y cambio de calefones a gas, con revisión de seguridad y conexión normalizada.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card reveal">
+            <div class="service-icon"><i class="bi bi-arrow-down-circle"></i></div>
+            <h3>Destape de alcantarillado</h3>
+            <p>Destape de cañerías y alcantarillado con equipos especializados para un flujo limpio y sin obstrucciones.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card reveal">
+            <div class="service-icon"><i class="bi bi-house-gear"></i></div>
+            <h3>Cambio de sanitarios</h3>
+            <p>Retiro e instalación de WC, estanques y accesorios sanitarios, dejando la zona limpia y funcional.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+          <div class="service-card reveal">
+            <div class="service-icon"><i class="bi bi-diagram-3"></i></div>
+            <h3>Mantención de cañerías</h3>
+            <p>Revisión preventiva de redes de agua potable para evitar fugas, corrosión y baja presión.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ NOSOTROS ============ -->
+  <section class="section section-alt" id="nosotros">
+    <div class="container">
+      <div class="row align-items-center g-5">
+        <div class="col-lg-6 order-lg-2">
+          <div class="about-art" aria-hidden="true">
+            <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg" class="about-svg">
+              <circle cx="240" cy="240" r="220" fill="#F8F9FA"/>
+              <circle cx="240" cy="240" r="220" fill="none" stroke="#0D6EFD" stroke-opacity="0.15" stroke-width="2" stroke-dasharray="4 10"/>
+              <path d="M 90 300 L 200 300 Q 230 300 230 270 L 230 180 Q 230 150 260 150 L 390 150"
+                fill="none" stroke="#0D6EFD" stroke-width="20" stroke-linecap="round" stroke-opacity="0.85"/>
+              <circle cx="230" cy="270" r="14" fill="#F8F9FA" stroke="#343A40" stroke-width="6"/>
+              <g transform="translate(300,150)">
+                <rect x="-16" y="-46" width="32" height="46" rx="6" fill="#343A40"/>
+                <rect x="-22" y="-56" width="44" height="14" rx="4" fill="#343A40"/>
+              </g>
+              <g class="about-drop">
+                <path d="M0 0 C 14 20, 22 34, 22 48 C 22 64, 12 74, 0 74 C -12 74, -22 64, -22 48 C -22 34, -14 20, 0 0 Z"
+                  transform="translate(150,330) scale(1.3)" fill="#0D6EFD"/>
+              </g>
+              <circle cx="360" cy="330" r="46" fill="#0D6EFD" fill-opacity="0.08"/>
+              <path d="M340 330 l14 14 l26 -30" fill="none" stroke="#0D6EFD" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+        </div>
+
+        <div class="col-lg-6 order-lg-1">
+          <span class="eyebrow eyebrow-dark">Quiénes somos</span>
+          <h2>Nosotros</h2>
+          <p class="about-text">
+            En JyJ nos dedicamos a ofrecer soluciones de gasfitería confiables, rápidas y con altos
+            estándares de calidad. Nuestro compromiso es entregar un servicio profesional que garantice
+            la satisfacción de cada cliente.
+          </p>
+
+          <h3 class="why-title">¿Por qué elegir JyJ?</h3>
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <div class="why-card">
+                <i class="bi bi-lightning-charge-fill"></i>
+                <div>
+                  <h4>Atención rápida</h4>
+                  <p>Respuesta ágil ante emergencias y solicitudes.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="why-card">
+                <i class="bi bi-person-check-fill"></i>
+                <div>
+                  <h4>Personal calificado</h4>
+                  <p>Técnicos con experiencia comprobada.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="why-card">
+                <i class="bi bi-patch-check-fill"></i>
+                <div>
+                  <h4>Garantía de calidad</h4>
+                  <p>Respaldamos cada trabajo realizado.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="why-card">
+                <i class="bi bi-cash-coin"></i>
+                <div>
+                  <h4>Presupuestos transparentes</h4>
+                  <p>Sin costos ocultos ni sorpresas.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cómo trabajamos: tubería como timeline -->
+      <div class="how-we-work">
+        <div class="section-heading text-center">
+          <span class="eyebrow eyebrow-dark">El proceso</span>
+          <h2>Cómo trabajamos</h2>
+          <p class="section-lead">Cuatro pasos, un mismo flujo: así avanza tu solicitud desde el primer contacto hasta la garantía final.</p>
+        </div>
+
+        <div class="pipeline" role="list">
+          <svg class="pipeline-svg" viewBox="0 0 1000 40" preserveAspectRatio="none" aria-hidden="true">
+            <line x1="0" y1="20" x2="1000" y2="20" stroke="#DDE3EA" stroke-width="6" stroke-linecap="round"/>
+            <line x1="0" y1="20" x2="1000" y2="20" stroke="#0D6EFD" stroke-width="6" stroke-linecap="round" class="pipeline-flow"/>
+          </svg>
+          <div class="pipeline-steps">
+            <div class="pipeline-step" role="listitem">
+              <div class="valve"><i class="bi bi-telephone-fill"></i></div>
+              <span class="step-num">01</span>
+              <h4>Contáctanos</h4>
+              <p>Cuéntanos tu problema por teléfono, WhatsApp o el formulario web.</p>
+            </div>
+            <div class="pipeline-step" role="listitem">
+              <div class="valve"><i class="bi bi-clipboard-check"></i></div>
+              <span class="step-num">02</span>
+              <h4>Evaluamos tu solicitud</h4>
+              <p>Revisamos el caso y te entregamos un presupuesto claro y sin compromiso.</p>
+            </div>
+            <div class="pipeline-step" role="listitem">
+              <div class="valve"><i class="bi bi-wrench-adjustable"></i></div>
+              <span class="step-num">03</span>
+              <h4>Realizamos el trabajo</h4>
+              <p>Nuestros técnicos ejecutan la reparación o instalación con materiales de calidad.</p>
+            </div>
+            <div class="pipeline-step" role="listitem">
+              <div class="valve"><i class="bi bi-shield-check"></i></div>
+              <span class="step-num">04</span>
+              <h4>Garantizamos el resultado</h4>
+              <p>Respaldamos cada trabajo realizado con garantía escrita.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ TESTIMONIOS ============ -->
+  <section class="section" id="testimonios">
+    <div class="container">
+      <div class="section-heading text-center">
+        <span class="eyebrow eyebrow-dark">Confianza real</span>
+        <h2>Lo que dicen nuestros clientes</h2>
+      </div>
+
+      <div id="testimonialCarousel" class="carousel slide testimonial-carousel" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="testimonial-card mx-auto">
+              <div class="stars" aria-label="5 de 5 estrellas">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              </div>
+              <p>"Llegaron rápido para reparar una fuga que teníamos en la cocina. Trabajo limpio y ordenado, muy recomendables."</p>
+              <div class="testimonial-author">
+                <div class="avatar">MF</div>
+                <div>
+                  <strong>Marcela Fuentes</strong>
+                  <span>Ñuñoa</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="testimonial-card mx-auto">
+              <div class="stars" aria-label="5 de 5 estrellas">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              </div>
+              <p>"Nos instalaron un calefón nuevo en la empresa. Cotización clara y cumplieron el plazo comprometido."</p>
+              <div class="testimonial-author">
+                <div class="avatar">RC</div>
+                <div>
+                  <strong>Rodrigo Carrasco</strong>
+                  <span>Providencia</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="testimonial-card mx-auto">
+              <div class="stars" aria-label="5 de 5 estrellas">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              </div>
+              <p>"Destaparon el alcantarillado de mi casa un domingo en la tarde. Atención rápida cuando más lo necesitábamos."</p>
+              <div class="testimonial-author">
+                <div class="avatar">PA</div>
+                <div>
+                  <strong>Paula Araya</strong>
+                  <span>La Florida</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+          <span class="carousel-nav-icon"><i class="bi bi-chevron-left"></i></span>
+          <span class="visually-hidden">Anterior</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+          <span class="carousel-nav-icon"><i class="bi bi-chevron-right"></i></span>
+          <span class="visually-hidden">Siguiente</span>
+        </button>
+        <div class="carousel-indicators testimonial-indicators">
+          <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Testimonio 1"></button>
+          <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" aria-label="Testimonio 2"></button>
+          <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" aria-label="Testimonio 3"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACTO ============ -->
+  <section class="section section-alt" id="contacto">
+    <div class="container">
+      <div class="section-heading text-center">
+        <span class="eyebrow eyebrow-dark">Hablemos</span>
+        <h2>Solicita tu presupuesto</h2>
+        <p class="section-lead">Escríbenos por WhatsApp, llámanos o mándanos un correo. Te respondemos a la brevedad.</p>
+      </div>
+
+      <div class="row g-4 justify-content-center">
+        <div class="col-sm-6 col-lg-3">
+          <div class="info-card info-card-stack">
+            <i class="bi bi-telephone-fill"></i>
+            <div>
+              <h4>Teléfono</h4>
+              <p><a href="tel:+56900000000">+56 9 0000 0000</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="info-card info-card-stack">
+            <i class="bi bi-envelope-fill"></i>
+            <div>
+              <h4>Correo</h4>
+              <p><a href="mailto:contacto@jyjgasfiteria.cl">contacto@jyjgasfiteria.cl</a></p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="info-card info-card-stack">
+            <i class="bi bi-geo-alt-fill"></i>
+            <div>
+              <h4>Dirección</h4>
+              <p>Av. Principal 1234, Santiago, Chile</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-lg-3">
+          <div class="info-card info-card-stack">
+            <i class="bi bi-clock-fill"></i>
+            <div>
+              <h4>Horario de atención</h4>
+              <p>Lun a Sáb, 08:00 – 20:00 hrs</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-cta">
+        <a href="https://wa.me/56900000000" target="_blank" rel="noopener" class="btn btn-lg btn-whatsapp">
+          <i class="bi bi-whatsapp"></i> Escribir por WhatsApp
+        </a>
+        <a href="tel:+56900000000" class="btn btn-primary btn-lg btn-hero">
+          <i class="bi bi-telephone-fill"></i> Llamar ahora
+        </a>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-lg-4">
+          <span class="brand-mark footer-brand">JyJ</span>
+          <p class="footer-desc">Gasfitería profesional para hogares y empresas. Rapidez, garantía y confianza en cada trabajo.</p>
+          <div class="social-links">
+            <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+            <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+            <a href="https://wa.me/56900000000" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-6">
+          <h5>Enlaces</h5>
+          <ul class="footer-links">
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3 col-6">
+          <h5>Servicios</h5>
+          <ul class="footer-links">
+            <li><a href="#servicios">Reparación de fugas</a></li>
+            <li><a href="#servicios">Instalación de grifería</a></li>
+            <li><a href="#servicios">Instalación de calefón</a></li>
+            <li><a href="#servicios">Destape de alcantarillado</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-3">
+          <h5>Contacto</h5>
+          <ul class="footer-links">
+            <li><i class="bi bi-envelope"></i> contacto@jyjgasfiteria.cl</li>
+            <li><i class="bi bi-whatsapp"></i> +56 9 0000 0000</li>
+            <li><i class="bi bi-geo-alt"></i> Santiago, Chile</li>
+          </ul>
+        </div>
+      </div>
+      <hr>
+      <p class="copyright">&copy; <span id="year"></span> JyJ Gasfitería. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Botón flotante WhatsApp -->
+  <a href="https://wa.me/56900000000" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Contactar por WhatsApp">
+    <i class="bi bi-whatsapp"></i>
+  </a>
+
+  <!-- Botón volver arriba -->
+  <button id="backToTop" class="back-to-top" aria-label="Volver arriba">
+    <i class="bi bi-arrow-up"></i>
+  </button>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
