@@ -392,52 +392,6 @@ a { text-decoration: none; }
 }
 
 /* =========================================================
-   Testimonios
-   ========================================================= */
-.testimonial-carousel { max-width: 700px; margin: 0 auto; padding: 0 56px; }
-.testimonial-card {
-  background: var(--color-light);
-  border-radius: var(--radius-lg);
-  padding: 44px;
-  text-align: center;
-  max-width: 620px;
-}
-.stars { color: #ffb400; font-size: 1.1rem; margin-bottom: 18px; }
-.testimonial-card p { font-size: 1.1rem; color: var(--color-dark); margin-bottom: 26px; font-style: italic; }
-.testimonial-author { display: flex; align-items: center; justify-content: center; gap: 12px; }
-.avatar {
-  width: 44px; height: 44px;
-  border-radius: 50%;
-  background: var(--color-blue);
-  color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  font-weight: 700;
-  font-family: var(--font-display);
-  font-size: 0.9rem;
-}
-.testimonial-author strong { display: block; font-size: 0.95rem; }
-.testimonial-author span { font-size: 0.82rem; color: #5c636a; }
-
-.carousel-control-prev, .carousel-control-next { width: 44px; opacity: 1; }
-.carousel-nav-icon {
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  background: var(--color-white);
-  box-shadow: var(--shadow-sm);
-  display: flex; align-items: center; justify-content: center;
-  color: var(--color-blue);
-  font-size: 1rem;
-}
-.testimonial-indicators {
-  position: static;
-  margin: 22px 0 0;
-  display: flex;
-  justify-content: center;
-}
-.testimonial-indicators [data-bs-target] { background: var(--color-blue); opacity: 0.3; width: 8px; height: 8px; border-radius: 50%; }
-.testimonial-indicators .active { opacity: 1; }
-
-/* =========================================================
    Contacto
    ========================================================= */
 .info-card-stack {
@@ -645,11 +599,6 @@ a { text-decoration: none; }
   .why-title { font-size: 1.15rem; }
   .how-we-work { margin-top: 64px; }
 
-  /* Testimonios: flechas más angostas para no tapar el texto */
-  .testimonial-carousel { padding: 0 34px; }
-  .testimonial-card { padding: 28px 18px; }
-  .testimonial-card p { font-size: 1rem; }
-
   /* Contacto */
   .contact-cta { flex-direction: column; margin-top: 36px; }
   .contact-cta .btn { width: 100%; justify-content: center; }
@@ -666,7 +615,6 @@ a { text-decoration: none; }
   .hero-title { font-size: clamp(1.9rem, 10vw, 2.4rem); }
   .service-icon { width: 50px; height: 50px; font-size: 1.3rem; }
   .valve { width: 54px; height: 54px; font-size: 1.1rem; }
-  .avatar { width: 40px; height: 40px; font-size: 0.82rem; }
 }
 
 /* Zona segura para botones flotantes en móviles con notch (iOS) */
