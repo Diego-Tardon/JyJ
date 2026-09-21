@@ -1,25 +1,16 @@
-/* =========================================================
-   JyJ Gasfitería — script.js
-   Funcionalidades: navbar al hacer scroll, animaciones de
-   aparición y botón volver arriba.
-   ========================================================= */
-
 document.addEventListener('DOMContentLoaded', function () {
 
-  /* ---------- Año actual en el footer ---------- */
   var yearEl = document.getElementById('year');
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
 
-  /* ---------- Navbar: cambia de estilo al hacer scroll ---------- */
   var navbar = document.getElementById('mainNavbar');
   var backToTopBtn = document.getElementById('backToTop');
   var SCROLL_THRESHOLD = 60;
 
   function handleScroll() {
     var scrolled = window.scrollY > SCROLL_THRESHOLD;
-
     if (navbar) {
       navbar.classList.toggle('scrolled', scrolled);
     }
@@ -29,16 +20,14 @@ document.addEventListener('DOMContentLoaded', function () {
   }
 
   window.addEventListener('scroll', handleScroll, { passive: true });
-  handleScroll(); // estado inicial
+  handleScroll();
 
-  /* ---------- Botón "Volver arriba" ---------- */
   if (backToTopBtn) {
     backToTopBtn.addEventListener('click', function () {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
 
-  /* ---------- Cerrar menú móvil al elegir una opción ---------- */
   var navMenu = document.getElementById('navMenu');
   if (navMenu) {
     navMenu.querySelectorAll('.nav-link').forEach(function (link) {
@@ -51,7 +40,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  /* ---------- Animación de aparición al hacer scroll ---------- */
   var revealItems = document.querySelectorAll('.reveal');
   var pipeline = document.querySelector('.pipeline');
 
@@ -79,7 +67,6 @@ document.addEventListener('DOMContentLoaded', function () {
       pipelineObserver.observe(pipeline);
     }
   } else {
-    // Fallback: navegadores sin soporte muestran todo directamente
     revealItems.forEach(function (item) { item.classList.add('is-visible'); });
     if (pipeline) { pipeline.classList.add('is-visible'); }
   }
