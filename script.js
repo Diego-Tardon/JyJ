@@ -1,222 +1,467 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // CONEXIÓN CON SUPABASE
+  // Usa únicamente la clave Publishable, nunca la contraseña
+  // de la base de datos ni las claves Secret o service_role.
+  var SUPABASE_URL = 'https://rbjpvlipgtajevtfdyxd.supabase.co';
+  var SUPABASE_KEY = 'RJebIHBdlIj7YSHa';
 
+  var db = null;
+
+  if (
+    window.supabase &&
+    SUPABASE_KEY !== 'RJebIHBdlIj7YSHa'
+  ) {
+    try {
+      db = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+    } catch (error) {
+      console.error('No se pudo iniciar Supabase:', error);
+    }
+  }
+
+  // AÑO DEL PIE DE PÁGINA
   var yearEl = document.getElementById('year');
+
   if (yearEl) {
     yearEl.textContent = new Date().getFullYear();
   }
 
+  // BARRA DE NAVEGACIÓN Y BOTÓN PARA SUBIR
   var navbar = document.getElementById('mainNavbar');
   var backToTopBtn = document.getElementById('backToTop');
-  var SCROLL_THRESHOLD = 60;
 
   function handleScroll() {
-    var scrolled = window.scrollY > SCROLL_THRESHOLD;
     if (navbar) {
-      navbar.classList.toggle('scrolled', scrolled);
+      navbar.classList.toggle('scrolled', window.scrollY > 60);
     }
+
     if (backToTopBtn) {
-      backToTopBtn.classList.toggle('is-visible', window.scrollY > 500);
+      backToTopBtn.classList.toggle(
+        'is-visible',
+        window.scrollY > 500
+      );
     }
   }
 
-  window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('scroll', handleScroll, {
+    passive: true
+  });
+
   handleScroll();
 
   if (backToTopBtn) {
     backToTopBtn.addEventListener('click', function () {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
     });
   }
 
+  // CERRAR EL MENÚ MÓVIL AL ELEGIR UNA SECCIÓN
   var navMenu = document.getElementById('navMenu');
+
   if (navMenu) {
     navMenu.querySelectorAll('.nav-link').forEach(function (link) {
       link.addEventListener('click', function () {
-        if (navMenu.classList.contains('show')) {
-          var collapse = bootstrap.Collapse.getOrCreateInstance(navMenu);
-          collapse.hide();
+        if (
+          navMenu.classList.contains('show') &&
+          window.bootstrap
+        ) {
+          window.bootstrap.Collapse
+            .getOrCreateInstance(navMenu)
+            .hide();
         }
       });
     });
   }
 
-  // Visor de imágenes de la galería
+  // VISOR DE IMÁGENES
   var lightboxImg = document.getElementById('lightboxImg');
   var lightboxCaption = document.getElementById('lightboxCaption');
+
   document.querySelectorAll('.gallery-trigger').forEach(function (btn) {
     btn.addEventListener('click', function () {
+      var image = btn.querySelector('img');
+
       if (lightboxImg) {
-        lightboxImg.src = btn.getAttribute('data-img');
-        lightboxImg.alt = btn.querySelector('img').alt;
+        lightboxImg.src = btn.getAttribute('data-img') || '';
+        lightboxImg.alt = image ? image.alt : '';
       }
+
       if (lightboxCaption) {
-        lightboxCaption.textContent = btn.getAttribute('data-caption') || '';
+        lightboxCaption.textContent =
+          btn.getAttribute('data-caption') || '';
       }
     });
   });
 
+  // ANIMACIONES AL DESPLAZARSE
   var revealItems = document.querySelectorAll('.reveal');
   var pipeline = document.querySelector('.pipeline');
 
   if ('IntersectionObserver' in window) {
-    var revealObserver = new IntersectionObserver(function (entries, observer) {
-      entries.forEach(function (entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15 });
-
-    revealItems.forEach(function (item) { revealObserver.observe(item); });
-
-    if (pipeline) {
-      var pipelineObserver = new IntersectionObserver(function (entries, observer) {
+    var revealObserver = new IntersectionObserver(
+      function (entries, observer) {
         entries.forEach(function (entry) {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-visible');
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.3 });
+      },
+      { threshold: 0.15 }
+    );
+
+    revealItems.forEach(function (item) {
+      revealObserver.observe(item);
+    });
+
+    if (pipeline) {
+      var pipelineObserver = new IntersectionObserver(
+        function (entries, observer) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+
       pipelineObserver.observe(pipeline);
     }
   } else {
-    revealItems.forEach(function (item) { item.classList.add('is-visible'); });
-    if (pipeline) { pipeline.classList.add('is-visible'); }
+    revealItems.forEach(function (item) {
+      item.classList.add('is-visible');
+    });
+
+    if (pipeline) {
+      pipeline.classList.add('is-visible');
+    }
   }
 
-  // Opiniones de clientes (se guardan en el navegador de quien las escribe)
-  var REVIEWS_KEY = 'jyj_reviews';
+  // OPINIONES COMPARTIDAS EN SUPABASE
   var WA_NUMBER = '56986941917';
   var reviewForm = document.getElementById('reviewForm');
   var reviewList = document.getElementById('reviewList');
+  var reviewEmpty = document.getElementById('reviewEmpty');
+  var reviewAvg = document.getElementById('reviewAvg');
+  var reviewAvgStars = document.getElementById('reviewAvgStars');
+  var reviewTotal = document.getElementById('reviewTotal');
+  var reviewMsg = document.getElementById('reviewMsg');
+  var reviewText = document.getElementById('reviewText');
+  var charCount = document.getElementById('charCount');
+  var sendingReview = false;
 
-  function loadReviews() {
-    try {
-      var data = JSON.parse(localStorage.getItem(REVIEWS_KEY) || '[]');
-      return Array.isArray(data) ? data : [];
-    } catch (e) { return []; }
+  function showMsg(kind, message) {
+    if (!reviewMsg) {
+      return;
+    }
+
+    reviewMsg.className =
+      'review-msg ' + (kind === 'error' ? 'is-error' : 'is-ok');
+
+    reviewMsg.textContent = message;
   }
 
-  function saveReviews(list) {
-    try { localStorage.setItem(REVIEWS_KEY, JSON.stringify(list.slice(0, 50))); return true; }
-    catch (e) { return false; }
-  }
+  function fillStars(container, rating) {
+    if (!container) {
+      return;
+    }
 
-  function fillStars(container, n) {
     container.textContent = '';
+
     for (var i = 1; i <= 5; i++) {
       var icon = document.createElement('i');
-      icon.className = 'bi ' + (i <= Math.round(n) ? 'bi-star-fill' : 'bi-star');
+
+      icon.className =
+        'bi ' + (i <= Math.round(rating)
+          ? 'bi-star-fill'
+          : 'bi-star');
+
       container.appendChild(icon);
     }
   }
 
-  function renderReviews() {
-    if (!reviewList) { return; }
-    var reviews = loadReviews();
-    var empty = document.getElementById('reviewEmpty');
-    var avgEl = document.getElementById('reviewAvg');
-    var avgStars = document.getElementById('reviewAvgStars');
-    var totalEl = document.getElementById('reviewTotal');
+  async function loadReviews() {
+    if (!db) {
+      throw new Error('Falta configurar la conexión con Supabase.');
+    }
 
-    reviewList.textContent = '';
-    if (empty) { empty.hidden = reviews.length > 0; }
+    var result = await db
+      .from('reviews')
+      .select('id, name, rating, text, created_at')
+      .eq('approved', true)
+      .order('created_at', { ascending: false });
 
-    if (!reviews.length) {
-      avgEl.textContent = '—';
-      fillStars(avgStars, 0);
-      totalEl.textContent = 'Aún no hay opiniones';
+    if (result.error) {
+      throw result.error;
+    }
+
+    return result.data || [];
+  }
+
+  async function saveReview(review) {
+    if (!db) {
+      throw new Error('Falta configurar la conexión con Supabase.');
+    }
+
+    var result = await db
+      .from('reviews')
+      .insert({
+        name: review.name,
+        rating: review.rating,
+        text: review.text
+      });
+
+    if (result.error) {
+      throw result.error;
+    }
+  }
+
+  async function renderReviews() {
+    if (!reviewList) {
       return;
     }
 
-    var sum = reviews.reduce(function (acc, r) { return acc + r.rating; }, 0);
-    var avg = sum / reviews.length;
-    avgEl.textContent = avg.toFixed(1).replace('.', ',');
-    fillStars(avgStars, avg);
-    totalEl.textContent = reviews.length + (reviews.length === 1 ? ' opinión' : ' opiniones');
+    reviewList.setAttribute('aria-busy', 'true');
 
-    reviews.forEach(function (r) {
-      var card = document.createElement('article');
-      card.className = 'review-card';
+    if (reviewEmpty) {
+      reviewEmpty.hidden = false;
+      reviewEmpty.textContent = 'Cargando opiniones…';
+    }
 
-      var head = document.createElement('div');
-      head.className = 'review-head';
-      var name = document.createElement('span');
-      name.className = 'review-name';
-      name.textContent = r.name;
-      var date = document.createElement('span');
-      date.className = 'review-date';
-      date.textContent = new Date(r.date).toLocaleDateString('es-CL', { day: 'numeric', month: 'short', year: 'numeric' });
-      head.appendChild(name);
-      head.appendChild(date);
+    try {
+      var reviews = await loadReviews();
 
-      var stars = document.createElement('div');
-      stars.className = 'stars';
-      stars.setAttribute('role', 'img');
-      stars.setAttribute('aria-label', r.rating + ' de 5 estrellas');
-      fillStars(stars, r.rating);
+      reviewList.textContent = '';
 
-      var text = document.createElement('p');
-      text.className = 'review-text';
-      text.textContent = r.text;
+      if (reviewEmpty) {
+        reviewEmpty.hidden = reviews.length > 0;
+        reviewEmpty.textContent = 'Sé el primero en dejar tu opinión.';
+      }
 
-      card.appendChild(head);
-      card.appendChild(stars);
-      card.appendChild(text);
-      reviewList.appendChild(card);
+      if (!reviews.length) {
+        if (reviewAvg) {
+          reviewAvg.textContent = '—';
+        }
+
+        fillStars(reviewAvgStars, 0);
+
+        if (reviewTotal) {
+          reviewTotal.textContent = 'Aún no hay opiniones';
+        }
+
+        return;
+      }
+
+      var sum = reviews.reduce(function (total, review) {
+        return total + Number(review.rating);
+      }, 0);
+
+      var average = sum / reviews.length;
+
+      if (reviewAvg) {
+        reviewAvg.textContent =
+          average.toFixed(1).replace('.', ',');
+      }
+
+      fillStars(reviewAvgStars, average);
+
+      if (reviewTotal) {
+        reviewTotal.textContent =
+          reviews.length +
+          (reviews.length === 1 ? ' opinión' : ' opiniones');
+      }
+
+      reviews.forEach(function (review) {
+        var card = document.createElement('article');
+        card.className = 'review-card';
+
+        var head = document.createElement('div');
+        head.className = 'review-head';
+
+        var name = document.createElement('span');
+        name.className = 'review-name';
+        name.textContent = review.name;
+
+        var date = document.createElement('span');
+        date.className = 'review-date';
+        date.textContent = new Date(
+          review.created_at
+        ).toLocaleDateString('es-CL', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric'
+        });
+
+        head.appendChild(name);
+        head.appendChild(date);
+
+        var stars = document.createElement('div');
+        stars.className = 'stars';
+        stars.setAttribute('role', 'img');
+        stars.setAttribute(
+          'aria-label',
+          review.rating + ' de 5 estrellas'
+        );
+
+        fillStars(stars, review.rating);
+
+        var text = document.createElement('p');
+        text.className = 'review-text';
+        text.textContent = review.text;
+
+        card.appendChild(head);
+        card.appendChild(stars);
+        card.appendChild(text);
+
+        reviewList.appendChild(card);
+      });
+    } catch (error) {
+      console.error('Error al cargar opiniones:', error);
+
+      if (reviewEmpty) {
+        reviewEmpty.hidden = false;
+        reviewEmpty.textContent =
+          'No se pudieron cargar las opiniones. Intenta más tarde.';
+      }
+
+      if (reviewTotal) {
+        reviewTotal.textContent = 'Opiniones no disponibles';
+      }
+    } finally {
+      reviewList.setAttribute('aria-busy', 'false');
+    }
+  }
+
+  // CONTADOR DE CARACTERES
+  if (reviewText && charCount) {
+    reviewText.addEventListener('input', function () {
+      charCount.textContent = reviewText.value.length;
     });
   }
 
+  // ENVÍO DE OPINIONES
   if (reviewForm) {
-    var reviewText = document.getElementById('reviewText');
-    var charCount = document.getElementById('charCount');
-    var reviewMsg = document.getElementById('reviewMsg');
+    reviewForm.addEventListener('submit', async function (event) {
+      event.preventDefault();
 
-    if (reviewText && charCount) {
-      reviewText.addEventListener('input', function () {
-        charCount.textContent = reviewText.value.length;
-      });
-    }
+      if (sendingReview) {
+        return;
+      }
 
-    function showMsg(kind, text) {
-      reviewMsg.className = 'review-msg ' + (kind === 'error' ? 'is-error' : 'is-ok');
-      reviewMsg.textContent = text;
-    }
+      if (!db) {
+        showMsg(
+          'error',
+          'El formulario todavía no está disponible. Intenta más tarde.'
+        );
+        return;
+      }
 
-    reviewForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var checked = reviewForm.querySelector('input[name="rating"]:checked');
-      var name = document.getElementById('reviewName').value.trim();
-      var text = reviewText.value.trim();
+      var checked = reviewForm.querySelector(
+        'input[name="rating"]:checked'
+      );
 
-      if (!checked) { showMsg('error', 'Elige una calificación de 1 a 5 estrellas.'); return; }
-      if (!name) { showMsg('error', 'Escribe tu nombre.'); return; }
-      if (text.length < 10) { showMsg('error', 'Cuéntanos un poco más (mínimo 10 caracteres).'); return; }
+      var nameInput = document.getElementById('reviewName');
+      var name = nameInput ? nameInput.value.trim() : '';
+      var text = reviewText ? reviewText.value.trim() : '';
+      var rating = checked ? Number(checked.value) : 0;
 
-      var rating = parseInt(checked.value, 10);
-      var reviews = loadReviews();
-      reviews.unshift({ name: name, rating: rating, text: text, date: Date.now() });
-      saveReviews(reviews);
-      renderReviews();
-      reviewForm.reset();
-      if (charCount) { charCount.textContent = '0'; }
+      if (!Number.isInteger(rating) || rating < 1 || rating > 5) {
+        showMsg(
+          'error',
+          'Elige una calificación de 1 a 5 estrellas.'
+        );
+        return;
+      }
 
-      // Mensaje de éxito + opción de enviar la opinión por WhatsApp a José
-      var stars = new Array(rating + 1).join('★');
-      var waText = 'Hola José, dejo mi opinión de JyJ Gasfitería:\n' + stars + ' (' + rating + '/5)\n' + text + '\n— ' + name;
-      reviewMsg.className = 'review-msg is-ok';
-      reviewMsg.textContent = '¡Gracias por tu opinión! ';
-      var link = document.createElement('a');
-      link.href = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(waText);
-      link.target = '_blank';
-      link.rel = 'noopener';
-      link.textContent = 'Enviársela también a José por WhatsApp';
-      reviewMsg.appendChild(link);
+      if (!name || name.length > 40) {
+        showMsg(
+          'error',
+          'Escribe tu nombre, con un máximo de 40 caracteres.'
+        );
+        return;
+      }
+
+      if (text.length < 10 || text.length > 400) {
+        showMsg(
+          'error',
+          'La opinión debe tener entre 10 y 400 caracteres.'
+        );
+        return;
+      }
+
+      var submitBtn = reviewForm.querySelector(
+        'button[type="submit"]'
+      );
+
+      sendingReview = true;
+
+      if (submitBtn) {
+        submitBtn.disabled = true;
+      }
+
+      showMsg('ok', 'Enviando opinión…');
+
+      try {
+        await saveReview({
+          name: name,
+          rating: rating,
+          text: text
+        });
+
+        reviewForm.reset();
+
+        if (charCount) {
+          charCount.textContent = '0';
+        }
+
+        showMsg(
+          'ok',
+          '¡Gracias! Tu opinión aparecerá cuando sea aprobada. '
+        );
+
+        // El enlace solo envía un mensaje si el visitante lo pulsa.
+        if (reviewMsg) {
+          var stars = '★'.repeat(rating);
+          var waText =
+            'Hola José, dejo mi opinión de JyJ Gasfitería:\n' +
+            stars + ' (' + rating + '/5)\n' +
+            text + '\n— ' + name;
+
+          var link = document.createElement('a');
+          link.href =
+            'https://wa.me/' + WA_NUMBER +
+            '?text=' + encodeURIComponent(waText);
+
+          link.target = '_blank';
+          link.rel = 'noopener noreferrer';
+          link.textContent =
+            'Enviársela también a José por WhatsApp';
+
+          reviewMsg.appendChild(link);
+        }
+      } catch (error) {
+        console.error('Error al enviar opinión:', error);
+
+        showMsg(
+          'error',
+          'No se pudo confirmar el envío. Revisa tu conexión e intenta nuevamente.'
+        );
+      } finally {
+        sendingReview = false;
+
+        if (submitBtn) {
+          submitBtn.disabled = false;
+        }
+      }
     });
   }
 
   renderReviews();
-
 });
