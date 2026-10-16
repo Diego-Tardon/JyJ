@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (
     window.supabase &&
-    SUPABASE_KEY !== 'sb_publishable_dYia6j51sczv3dD6vi8BmA_yyRLbZgn'
+    SUPABASE_KEY !== 'PEGA_AQUI_TU_CLAVE_PUBLICABLE'
   ) {
     try {
       db = window.supabase.createClient(
