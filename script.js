@@ -1,24 +1,27 @@
 document.addEventListener('DOMContentLoaded', function () {
   // CONEXIÓN CON SUPABASE
-  // Usa únicamente la clave Publishable, nunca la contraseña
-  // de la base de datos ni las claves Secret o service_role.
-var SUPABASE_URL = 'https://rbjpvlipgtajevtfdyxd.supabase.co';
-var SUPABASE_KEY = 'sb_publishable_dYia6j51sczv3dD6vi8BmA_yyRLbZgn';
+  var SUPABASE_URL = 'https://rbjpvlipgtajevtfdyxd.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_dYia6j51sczv3dD6vi8BmA_yyRLbZgn';
 
-var db = null;
+  var db = null;
 
-if (window.supabase) {
-  try {
-    db = window.supabase.createClient(
-      SUPABASE_URL,
-      SUPABASE_KEY
+  if (
+    window.supabase &&
+    SUPABASE_KEY !== 'sb_publishable_dYia6j51sczv3dD6vi8BmA_yyRLbZgn'
+  ) {
+    try {
+      db = window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+      );
+    } catch (error) {
+      console.error('No se pudo iniciar Supabase:', error);
+    }
+  } else {
+    console.error(
+      'Falta la biblioteca de Supabase o la clave publicable.'
     );
-  } catch (error) {
-    console.error('No se pudo iniciar Supabase:', error);
   }
-} else {
-  console.error('No se cargó la biblioteca de Supabase.');
-}
 
   // AÑO DEL PIE DE PÁGINA
   var yearEl = document.getElementById('year');
@@ -178,14 +181,17 @@ if (window.supabase) {
       var icon = document.createElement('i');
 
       icon.className =
-        'bi ' + (i <= Math.round(rating)
-          ? 'bi-star-fill'
-          : 'bi-star');
+        'bi ' + (
+          i <= Math.round(rating)
+            ? 'bi-star-fill'
+            : 'bi-star'
+        );
 
       container.appendChild(icon);
     }
   }
 
+  // LEER LAS OPINIONES PUBLICADAS
   async function loadReviews() {
     if (!db) {
       throw new Error('Falta configurar la conexión con Supabase.');
@@ -204,6 +210,8 @@ if (window.supabase) {
     return result.data || [];
   }
 
+  // GUARDAR UNA OPINIÓN
+  // La base de datos asigna approved = true por defecto.
   async function saveReview(review) {
     if (!db) {
       throw new Error('Falta configurar la conexión con Supabase.');
@@ -222,9 +230,10 @@ if (window.supabase) {
     }
   }
 
+  // MOSTRAR OPINIONES Y ACTUALIZAR PROMEDIO
   async function renderReviews() {
     if (!reviewList) {
-      return;
+      return false;
     }
 
     reviewList.setAttribute('aria-busy', 'true');
@@ -255,7 +264,7 @@ if (window.supabase) {
           reviewTotal.textContent = 'Aún no hay opiniones';
         }
 
-        return;
+        return true;
       }
 
       var sum = reviews.reduce(function (total, review) {
@@ -321,6 +330,8 @@ if (window.supabase) {
 
         reviewList.appendChild(card);
       });
+
+      return true;
     } catch (error) {
       console.error('Error al cargar opiniones:', error);
 
@@ -333,6 +344,8 @@ if (window.supabase) {
       if (reviewTotal) {
         reviewTotal.textContent = 'Opiniones no disponibles';
       }
+
+      return false;
     } finally {
       reviewList.setAttribute('aria-busy', 'false');
     }
@@ -413,19 +426,45 @@ if (window.supabase) {
           rating: rating,
           text: text
         });
+      } catch (error) {
+        console.error('Error al enviar opinión:', error);
 
+        showMsg(
+          'error',
+          'No se pudo confirmar el envío. Revisa tu conexión e intenta nuevamente.'
+        );
+
+        sendingReview = false;
+
+        if (submitBtn) {
+          submitBtn.disabled = false;
+        }
+
+        return;
+      }
+
+      try {
+        // El envío ya fue confirmado.
         reviewForm.reset();
 
         if (charCount) {
           charCount.textContent = '0';
         }
 
-        showMsg(
-          'ok',
-          '¡Gracias! Tu opinión aparecerá cuando sea aprobada. '
-        );
+        showMsg('ok', '¡Gracias! Tu opinión ya fue publicada. ');
 
-        // El enlace solo envía un mensaje si el visitante lo pulsa.
+        // Actualiza la lista al lado sin recargar la página.
+        var refreshed = await renderReviews();
+
+        if (!refreshed) {
+          showMsg(
+            'ok',
+            '¡Gracias! Tu opinión se guardó, pero no pudimos actualizar la lista. Recarga la página; no necesitas enviarla otra vez. '
+          );
+        }
+
+        // El mensaje de WhatsApp solo se envía si el usuario
+        // pulsa el enlace y confirma el envío en WhatsApp.
         if (reviewMsg) {
           var stars = '★'.repeat(rating);
           var waText =
@@ -445,13 +484,6 @@ if (window.supabase) {
 
           reviewMsg.appendChild(link);
         }
-      } catch (error) {
-        console.error('Error al enviar opinión:', error);
-
-        showMsg(
-          'error',
-          'No se pudo confirmar el envío. Revisa tu conexión e intenta nuevamente.'
-        );
       } finally {
         sendingReview = false;
 
@@ -462,5 +494,6 @@ if (window.supabase) {
     });
   }
 
+  // CARGAR OPINIONES AL ABRIR LA PÁGINA
   renderReviews();
 });
