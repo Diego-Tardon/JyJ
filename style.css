@@ -332,6 +332,133 @@ a { text-decoration: none; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
 /* =========================================================
+   Galería de trabajos
+   ========================================================= */
+.gallery-trigger {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  text-align: left;
+}
+.gallery-trigger img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.gallery-trigger:hover img { transform: scale(1.05); }
+
+/* Antes / Después */
+.before-after {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 18px;
+  max-width: 860px;
+  margin: 0 auto 14px;
+}
+.ba-item { margin: 0; box-shadow: var(--shadow-md); border-radius: var(--radius-lg); }
+.ba-item .gallery-trigger { aspect-ratio: auto; }
+.ba-item img { aspect-ratio: 4 / 5; }
+.ba-arrow { color: var(--color-blue); font-size: 2.2rem; line-height: 1; }
+.ba-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 100px;
+  color: #fff;
+}
+.ba-before { background: rgba(52, 58, 64, 0.88); }
+.ba-after { background: var(--color-blue); }
+.ba-caption {
+  color: #5c636a;
+  font-size: 0.95rem;
+  margin: 0 0 48px;
+}
+.ba-caption i { color: var(--color-blue); margin-right: 6px; }
+
+/* Grilla */
+.gallery-item {
+  position: relative;
+  margin: 0;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.25s ease, transform 0.6s ease, opacity 0.6s ease;
+}
+.gallery-item:hover { box-shadow: var(--shadow-md); }
+.gallery-item figcaption {
+  position: absolute;
+  inset: auto 0 0 0;
+  padding: 46px 16px 14px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #fff;
+  background: linear-gradient(to top, rgba(8, 48, 107, 0.92), rgba(8, 48, 107, 0));
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: flex-start;
+}
+.gallery-tag {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.18);
+  padding: 3px 10px;
+  border-radius: 100px;
+}
+
+/* Lightbox */
+.lightbox-content {
+  background: transparent;
+  border: 0;
+  align-items: center;
+}
+.lightbox-content img {
+  max-width: 100%;
+  max-height: 80vh;
+  border-radius: var(--radius-md);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+.lightbox-caption {
+  color: #fff;
+  text-align: center;
+  margin: 14px 0 0;
+  font-size: 0.95rem;
+}
+.lightbox-close {
+  position: absolute;
+  top: -34px;
+  right: 0;
+  z-index: 2;
+  opacity: 1;
+}
+
+@media (max-width: 767.98px) {
+  .before-after { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ba-arrow { display: none; }
+  .ba-badge { top: 10px; left: 10px; font-size: 0.66rem; padding: 5px 11px; }
+  .ba-caption { margin-bottom: 36px; font-size: 0.9rem; }
+  .gallery-item figcaption { padding: 36px 12px 11px; font-size: 0.78rem; }
+  .gallery-trigger { border-radius: var(--radius-md); }
+}
+
+/* =========================================================
    Nosotros
    ========================================================= */
 .about-art { display: flex; justify-content: center; }

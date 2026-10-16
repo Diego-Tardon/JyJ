@@ -40,6 +40,21 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  // Visor de imágenes de la galería
+  var lightboxImg = document.getElementById('lightboxImg');
+  var lightboxCaption = document.getElementById('lightboxCaption');
+  document.querySelectorAll('.gallery-trigger').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      if (lightboxImg) {
+        lightboxImg.src = btn.getAttribute('data-img');
+        lightboxImg.alt = btn.querySelector('img').alt;
+      }
+      if (lightboxCaption) {
+        lightboxCaption.textContent = btn.getAttribute('data-caption') || '';
+      }
+    });
+  });
+
   var revealItems = document.querySelectorAll('.reveal');
   var pipeline = document.querySelector('.pipeline');
 
