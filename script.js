@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Usa únicamente la clave Publishable, nunca la contraseña
   // de la base de datos ni las claves Secret o service_role.
 var SUPABASE_URL = 'https://rbjpvlipgtajevtfdyxd.supabase.co';
-var SUPABASE_KEY = 'sb_publishable_RJebIHBdlIj7YSHa';
+var SUPABASE_KEY = 'sb_publishable_dYia6j51sczv3dD6vi8BmA_yyRLbZgn';
 
 var db = null;
 
