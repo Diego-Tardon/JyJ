@@ -465,25 +465,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // El mensaje de WhatsApp solo se envía si el usuario
         // pulsa el enlace y confirma el envío en WhatsApp.
-        if (reviewMsg) {
-          var stars = '★'.repeat(rating);
-          var waText =
-            'Hola José, dejo mi opinión de JyJ Gasfitería:\n' +
-            stars + ' (' + rating + '/5)\n' +
-            text + '\n— ' + name;
-
-          var link = document.createElement('a');
-          link.href =
-            'https://wa.me/' + WA_NUMBER +
-            '?text=' + encodeURIComponent(waText);
-
-          link.target = '_blank';
-          link.rel = 'noopener noreferrer';
-          link.textContent =
-            'Enviársela también a José por WhatsApp';
-
-          reviewMsg.appendChild(link);
-        }
+    showMsg('ok', '¡Gracias! Tu opinión ya fue publicada!');
       } finally {
         sendingReview = false;
 
