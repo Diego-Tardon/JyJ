@@ -2,24 +2,23 @@ document.addEventListener('DOMContentLoaded', function () {
   // CONEXIÓN CON SUPABASE
   // Usa únicamente la clave Publishable, nunca la contraseña
   // de la base de datos ni las claves Secret o service_role.
-  var SUPABASE_URL = 'https://rbjpvlipgtajevtfdyxd.supabase.co';
-  var SUPABASE_KEY = 'RJebIHBdlIj7YSHa';
+var SUPABASE_URL = 'https://rbjpvlipgtajevtfdyxd.supabase.co';
+var SUPABASE_KEY = 'RJebIHBdlIj7YSHa';
 
-  var db = null;
+var db = null;
 
-  if (
-    window.supabase &&
-    SUPABASE_KEY !== 'RJebIHBdlIj7YSHa'
-  ) {
-    try {
-      db = window.supabase.createClient(
-        SUPABASE_URL,
-        SUPABASE_KEY
-      );
-    } catch (error) {
-      console.error('No se pudo iniciar Supabase:', error);
-    }
+if (window.supabase) {
+  try {
+    db = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_KEY
+    );
+  } catch (error) {
+    console.error('No se pudo iniciar Supabase:', error);
   }
+} else {
+  console.error('No se cargó la biblioteca de Supabase.');
+}
 
   // AÑO DEL PIE DE PÁGINA
   var yearEl = document.getElementById('year');
